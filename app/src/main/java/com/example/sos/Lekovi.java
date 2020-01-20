@@ -11,6 +11,7 @@ public class Lekovi extends AppCompatActivity {
 
     public Button btnPregled;
     public Button btnUnos;
+    public Button btnPods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,8 @@ public class Lekovi extends AppCompatActivity {
 
         btnPregled = (Button)findViewById(R.id.btnPregledLekova);
         btnUnos = (Button)findViewById(R.id.btnUnosLekova);
+        btnPods = (Button)findViewById(R.id.btnPodsetnik);
+
         btnPregled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +32,12 @@ public class Lekovi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openUnosLekova();
+            }
+        });
+        btnPods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUnosPodsetnika();
             }
         });
     }
@@ -43,4 +52,10 @@ public class Lekovi extends AppCompatActivity {
         Intent intent = new Intent(this, UnosLekova.class);
         startActivity(intent);
     }
+
+    public void openUnosPodsetnika(){
+        Intent intent = new Intent(this, UnosPodsetnika.class);
+        startActivity(intent);
+    }
+
 }

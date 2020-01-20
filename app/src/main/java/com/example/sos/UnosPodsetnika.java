@@ -4,16 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PregledLekova extends AppCompatActivity {
-
-    DBBroker dbb;
+public class UnosPodsetnika extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pregled_lekova);
-
-        dbb = new DBBroker(this);
-
+        setContentView(R.layout.activity_unos_podsetnika);
     }
 }

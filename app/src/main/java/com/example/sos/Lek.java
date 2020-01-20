@@ -6,7 +6,15 @@ class Lek implements Serializable {
     private int lek_id;
     private String naziv;
     private String genericko_ime;
+    private boolean selected;
 
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public Lek(int lek_id, String naziv, String genericko_ime) {
         this.lek_id = lek_id;

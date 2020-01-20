@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UnosLekova"></activity>
+        <activity android:name=".UnosPodsetnika"></activity>
+        <activity android:name=".UnosLekova" />
         <activity android:name=".PregledLekova" />
         <activity android:name=".Lekovi" />
         <activity android:name=".MainActivity">

@@ -22,8 +22,14 @@ public class Lekovi extends AppCompatActivity {
         btnPregled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPregledLekova();
-                openUnosLekova();
+                switch (v.getId()){
+                    case R.id.btnPregledLekova:
+                        openPregledLekova();
+                        break;
+                    case R.id.btnUnosLekova:
+                        openUnosLekova();
+                        break;
+                }
             }
         });
     }

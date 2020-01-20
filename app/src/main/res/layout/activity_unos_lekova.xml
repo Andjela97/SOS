@@ -6,4 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".UnosLekova">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="85dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="10dp"
+        android:text="Naziv"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/txtNaziv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="83dp"
+        android:text="Genericko ime"
+        app:layout_constraintBottom_toTopOf="@+id/btnDodajLek"
+        app:layout_constraintEnd_toStartOf="@+id/txtGenIme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/txtNaziv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/txtGenIme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtGenIme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="78dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btnDodajLek"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/txtNaziv" />
+
+    <Button
+        android:id="@+id/btnDodajLek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="247dp"
+        android:layout_marginBottom="469dp"
+        android:text="Dodaj lek"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

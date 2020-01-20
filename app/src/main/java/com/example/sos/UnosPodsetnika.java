@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,16 +22,18 @@ public class UnosPodsetnika extends AppCompatActivity {
     ArrayList<Lek> lista;
     DBBroker db;
     final Adapter adapter = new Adapter();
-    CheckBox jutro = findViewById(R.id.checkBoxJutro);
-    CheckBox podne = findViewById(R.id.checkBoxPodne);
-    CheckBox noc = findViewById(R.id.checkBoxVece);
+    CheckBox jutro;
+    CheckBox podne;
+    CheckBox noc;
+    Button potvrdiPodsetnik;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unos_podsetnika);
 
-        ListView listView = findViewById(R.id.moguciLekovi);
+        listView = findViewById(R.id.moguciLekovi);
 
 
         try {
@@ -38,10 +41,13 @@ public class UnosPodsetnika extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //db.dropTables();
+
         lista = db.dajSveLekove();
 
-        Button potvrdiPotsetnik = findViewById(R.id.potvrdiPotsetnikBtn);
+        potvrdiPodsetnik = findViewById(R.id.potvrdiPotsetnikBtn);
+        jutro = findViewById(R.id.checkBoxJutro);
+        podne = findViewById(R.id.checkBoxPodne);
+        noc = findViewById(R.id.checkBoxVece);
 
         listView.setAdapter(adapter);
 
@@ -55,11 +61,11 @@ public class UnosPodsetnika extends AppCompatActivity {
 
             }
         });
-        potvrdiPotsetnik.setOnClickListener(new View.OnClickListener() {
+
+        potvrdiPodsetnik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Lek l : lista
-                ) {
+                for (Lek l : lista) {
                     if (l.isSelected()) {
                         Podsetnik pom = new Podsetnik();
                         pom.setLek_id(l.getLek_id());
@@ -67,9 +73,14 @@ public class UnosPodsetnika extends AppCompatActivity {
                             pom.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
                         if (podne.isChecked())
                             pom.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
-                        if (noc.isChecked()) pom.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
-
-
+                        if (noc.isChecked())
+                            pom.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
+                        long vr = db.dodajPodsetnik(pom);
+                        if(vr != -1){
+                            Toast.makeText(UnosPodsetnika.this,"Unet podsetnik!",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(UnosPodsetnika.this,"Podsetnik nije unet!",Toast.LENGTH_LONG).show();
+                        }
 
                     }
 
@@ -100,8 +111,7 @@ public class UnosPodsetnika extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.prikaz_list_item, null);
-//            SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
-//            view.setBackgroundColor(Color.parseColor('#'+sharedPreferences.getString("boja","FFFFFF")));
+
             TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
             CheckBox cekirano = view.findViewById(R.id.checkBox);
 

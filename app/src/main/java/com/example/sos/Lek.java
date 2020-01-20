@@ -20,9 +20,9 @@ class Lek implements Serializable {
         this.lek_id = lek_id;
         this.naziv = naziv;
         this.genericko_ime = genericko_ime;
-
+        selected=false;
     }
-    public Lek(){}
+    public Lek(){selected=false;}
 
     public int getLek_id() {
         return lek_id;

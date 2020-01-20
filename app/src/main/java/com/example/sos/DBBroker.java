@@ -49,9 +49,6 @@ public class DBBroker extends SQLiteOpenHelper {
         }
         return lista;
     }
-
-
-
     public long dodajLek(Lek l){
         System.out.println("PRE DODAVANJA");
         System.out.println(l);
@@ -63,9 +60,7 @@ public class DBBroker extends SQLiteOpenHelper {
 
         db.close();
         return rt;
-
     }
-
     public void obrisiLek(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String upit = "delete from lekovi where lek_id = " + id;
@@ -73,8 +68,6 @@ public class DBBroker extends SQLiteOpenHelper {
         db.execSQL(upit);
         db.close();
     }
-
-
     public Lek dajLek(int id){
         String query = "SELECT  * FROM lekovi where lek_id = " + id;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -86,7 +79,6 @@ public class DBBroker extends SQLiteOpenHelper {
         return lek;
 
     }
-
     public ArrayList<Lek> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije){
         ArrayList<Lek> lista = new ArrayList<>();
         String query = "SELECT  * FROM lekovi l JOIN podsetnici p ON l.lek_id = p.lek_id " +
@@ -103,5 +95,14 @@ public class DBBroker extends SQLiteOpenHelper {
         }
         return lista;
     }
+    public long dodajPodsetnik(Podsetnik p){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("lek_id",p.getLek_id());
+        values.put("vreme_terapije",p.getVreme_terapije().name());
+        long rt = (db.insert("podsetnici", null,values));
 
+        db.close();
+        return rt;
+    }
 }

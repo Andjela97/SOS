@@ -15,21 +15,20 @@ public class Lekovi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lekovi);
 
         btnPregled = (Button)findViewById(R.id.btnPregledLekova);
         btnUnos = (Button)findViewById(R.id.btnUnosLekova);
         btnPregled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.btnPregledLekova:
-                        openPregledLekova();
-                        break;
-                    case R.id.btnUnosLekova:
-                        openUnosLekova();
-                        break;
-                }
+                openPregledLekova();
+            }
+        });
+        btnUnos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUnosLekova();
             }
         });
     }

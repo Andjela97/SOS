@@ -3,7 +3,12 @@ package com.example.sos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -13,7 +18,13 @@ public class PregledLekova extends AppCompatActivity {
     ListView listaJutro;
     ListView listaPodne;
     ListView listaVece;
-
+    ArrayList<Lek> lJutro;
+    ArrayList<Lek> lPodne;
+    ArrayList<Lek> lVece;
+    DBBroker db;
+    final Adapter1 adapter1 = new Adapter1();
+    final Adapter2 adapter2 = new Adapter2();
+    final Adapter3 adapter3 = new Adapter3();
 
 
     @Override
@@ -26,8 +37,127 @@ public class PregledLekova extends AppCompatActivity {
         listaPodne = (ListView) findViewById(R.id.listPodne);
         listaVece = (ListView) findViewById(R.id.listVece);
 
+        lJutro = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.jutro);
+        lPodne = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.podne);
+        lVece = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.vece);
 
+        listaJutro.setAdapter(adapter1);
+        listaPodne.setAdapter(adapter2);
+        listaVece.setAdapter(adapter3);
 
 
     }
+
+
+
+    public class Adapter1 extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return lJutro.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return lJutro.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            Lek kom = (Lek) getItem(i);
+            return kom.getLek_id();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.prikaz_list_lek, null);
+
+            TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
+
+            txtNaziv.setText(lJutro.get(i).getNaziv());
+
+            return view;
+        }
+    }
+
+    public class Adapter2 extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return lPodne.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return lPodne.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            Lek kom = (Lek) getItem(i);
+            return kom.getLek_id();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.prikaz_list_lek, null);
+
+            TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
+
+            txtNaziv.setText(lPodne.get(i).getNaziv());
+
+            return view;
+        }
+    }
+
+
+
+
+    public class Adapter3 extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return lVece.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return lVece.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            Lek kom = (Lek) getItem(i);
+            return kom.getLek_id();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.prikaz_list_lek, null);
+
+            TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
+
+            txtNaziv.setText(lVece.get(i).getNaziv());
+
+            return view;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -82,7 +82,7 @@ public class DBBroker extends SQLiteOpenHelper {
     public ArrayList<Lek> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije){
         ArrayList<Lek> lista = new ArrayList<>();
         String query = "SELECT  * FROM lekovi l JOIN podsetnici p ON l.lek_id = p.lek_id " +
-                "where podsetnici.vreme_terapije ="+ vreme_terapije;
+                "where vreme_terapije = '"+vreme_terapije+"'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         while (cursor.moveToNext()) {

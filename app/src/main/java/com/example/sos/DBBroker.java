@@ -68,31 +68,29 @@ public class DBBroker extends SQLiteOpenHelper {
         db.execSQL(upit);
         db.close();
     }
-    public Lek dajLek(int id){
-        String query = "SELECT  * FROM lekovi where lek_id = " + id;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        Lek lek = new Lek();
-        lek.setLek_id(cursor.getInt(0));
-        lek.setNaziv(cursor.getString(1));
-        lek.setGenericko_ime(cursor.getString(2));
-        return lek;
 
+    public void obrisiPodsetnik(ZaPrikazPrikaza p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String upit = "delete from podsetnici where podsetnik_id = '"+p.getPodsetnik_id()+"'";
+        System.out.println(upit);
+        db.execSQL(upit);
+        db.close();
     }
-    public ArrayList<Lek> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije){
-        ArrayList<Lek> lista = new ArrayList<>();
-        String query = "SELECT  l.lek_id, naziv, genericko_ime FROM lekovi l JOIN podsetnici p ON l.lek_id = p.lek_id " +
+
+
+    public ArrayList<ZaPrikazPrikaza> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije){
+        ArrayList<ZaPrikazPrikaza> lista = new ArrayList<>();
+        String query = "SELECT  naziv,  podsetnik_id FROM lekovi l JOIN podsetnici p ON l.lek_id = p.lek_id " +
                 "where vreme_terapije = '"+vreme_terapije+"'";
         System.out.println(query);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         while (cursor.moveToNext()) {
 
-            Lek lek = new Lek();
-            lek.setLek_id(cursor.getInt(0));
-            lek.setNaziv(cursor.getString(1));
-            lek.setGenericko_ime(cursor.getString(2));
-            lista.add(lek);
+            ZaPrikazPrikaza zpp = new ZaPrikazPrikaza();
+            zpp.setNaziv(cursor.getString(0));
+            zpp.setPodsetnik_id(cursor.getInt(1));
+            lista.add(zpp);
         }
         return lista;
     }

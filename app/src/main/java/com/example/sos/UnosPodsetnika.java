@@ -29,6 +29,7 @@ public class UnosPodsetnika extends AppCompatActivity {
     ListView listView;
     ArrayList<Lek> izabraniLekovi = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

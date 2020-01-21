@@ -2,16 +2,27 @@ package com.example.sos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class PregledLekova extends AppCompatActivity implements DialogYesNo.DialogYesNoListener {
 
@@ -27,11 +38,50 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
     final Adapter2 adapter2 = new Adapter2();
     final Adapter3 adapter3 = new Adapter3();
 
+    Button btnNotif;
+
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Kanal notifikacija";
+            String description = "Kanal notifikacija";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel kanal = new NotificationChannel("kanalID",name,importance);
+            kanal.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(kanal);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pregled_lekova);
+
+        createNotificationChannel();
+        btnNotif = findViewById(R.id.btnNotifikacije);
+
+        btnNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PregledLekova.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY,21);
+                calendar.set(Calendar.MINUTE,22);
+
+
+                Intent intent = new Intent(PregledLekova.this, ReminderBroadcast.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(PregledLekova.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY,pendingIntent);
+            }
+        });
+
 
         dbb = new DBBroker(this);
         listaJutro = (ListView) findViewById(R.id.listJutro);

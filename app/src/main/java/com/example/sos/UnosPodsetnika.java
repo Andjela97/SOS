@@ -27,6 +27,7 @@ public class UnosPodsetnika extends AppCompatActivity {
     CheckBox noc;
     Button potvrdiPodsetnik;
     ListView listView;
+    ArrayList<Lek> izabraniLekovi = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,17 @@ public class UnosPodsetnika extends AppCompatActivity {
         noc = findViewById(R.id.checkBoxVece);
 
         listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("JA KLIKNUTA");
 
+                if (!izabraniLekovi.contains(lista.get(i)))
+                    izabraniLekovi.add(lista.get(i));
+                else izabraniLekovi.remove(lista.get(i));
 
             }
         });
@@ -65,26 +69,50 @@ public class UnosPodsetnika extends AppCompatActivity {
         potvrdiPodsetnik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Lek l : lista) {
-                    if (l.isSelected()) {
+                if (!noc.isChecked() & !jutro.isChecked() & !podne.isChecked()) {
+                    Toast.makeText(UnosPodsetnika.this, "Morate izabrati vreme podsetnika!", Toast.LENGTH_LONG).show();
+                    System.out.println(jutro.isSelected());
+                    System.out.println(noc.isSelected());
+                    System.out.println(podne.isSelected());
+                    return;
+                }
+
+                if (izabraniLekovi.isEmpty()) {
+                    Toast.makeText(UnosPodsetnika.this, "Morate izabrati bar jedan lek!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
+                if (jutro.isChecked()) {
+                    for (Lek l : izabraniLekovi) {
                         Podsetnik pom = new Podsetnik();
                         pom.setLek_id(l.getLek_id());
-                        if (jutro.isChecked())
-                            pom.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
-                        if (podne.isChecked())
-                            pom.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
-                        if (noc.isChecked())
-                            pom.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
-                        long vr = db.dodajPodsetnik(pom);
-                        if(vr != -1){
-                            Toast.makeText(UnosPodsetnika.this,"Unet podsetnik!",Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(UnosPodsetnika.this,"Podsetnik nije unet!",Toast.LENGTH_LONG).show();
-                        }
+                        pom.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
+                        db.dodajPodsetnik(pom);
 
                     }
-
                 }
+                if (podne.isChecked()) {
+                    for (Lek l : izabraniLekovi) {
+                        Podsetnik pom = new Podsetnik();
+                        pom.setLek_id(l.getLek_id());
+                        pom.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
+                        db.dodajPodsetnik(pom);
+
+                    }
+                }
+                if (noc.isChecked()) {
+                    for (Lek l : izabraniLekovi) {
+                        Podsetnik pom = new Podsetnik();
+                        pom.setLek_id(l.getLek_id());
+                        pom.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
+                        db.dodajPodsetnik(pom);
+
+                    }
+                }
+                Toast.makeText(UnosPodsetnika.this, "Uspesno uneti podsetnici!", Toast.LENGTH_LONG).show();
+                finish();
+
 
             }
         });
@@ -113,13 +141,12 @@ public class UnosPodsetnika extends AppCompatActivity {
             view = getLayoutInflater().inflate(R.layout.prikaz_list_item, null);
 
             TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
-            CheckBox cekirano = view.findViewById(R.id.checkBox);
+            //CheckBox cekirano = view.findViewById(R.id.checkBox);
 
             txtNaziv.setText(lista.get(i).getNaziv());
-            cekirano.setChecked(lista.get(i).isSelected());
+            // cekirano.setChecked(lista.get(i).isSelected());
 
             return view;
         }
-
     }
 }

@@ -18,10 +18,10 @@ public class PregledLekova extends AppCompatActivity {
     ListView listaJutro;
     ListView listaPodne;
     ListView listaVece;
-    ArrayList<Lek> lJutro;
-    ArrayList<Lek> lPodne;
-    ArrayList<Lek> lVece;
-    DBBroker db;
+    ArrayList<Lek> lJutro = new ArrayList<>();
+    ArrayList<Lek> lPodne = new ArrayList<>();
+    ArrayList<Lek> lVece = new ArrayList<>();
+
     final Adapter1 adapter1 = new Adapter1();
     final Adapter2 adapter2 = new Adapter2();
     final Adapter3 adapter3 = new Adapter3();
@@ -37,9 +37,9 @@ public class PregledLekova extends AppCompatActivity {
         listaPodne = (ListView) findViewById(R.id.listPodne);
         listaVece = (ListView) findViewById(R.id.listVece);
 
-        lJutro = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.jutro);
-        lPodne = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.podne);
-        lVece = db.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.vece);
+        lJutro = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.jutro);
+        lPodne = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.podne);
+        lVece = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.vece);
 
         listaJutro.setAdapter(adapter1);
         listaPodne.setAdapter(adapter2);

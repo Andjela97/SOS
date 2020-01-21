@@ -4,13 +4,22 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.ArrayList;
 
 public class SOS extends AppCompatActivity {
     @Override
@@ -64,6 +73,43 @@ public class SOS extends AppCompatActivity {
             }
         });
 
+        Button btnPoruka = findViewById(R.id.btnPosaljiSMS);
+        btnPoruka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dajLokacijuMofo();
+            }
+        });
+
     }
 
+    private void dajLokacijuMofo(){
+        final FusedLocationProviderClient klijent = LocationServices.getFusedLocationProviderClient(this);
+
+        klijent.getLastLocation().addOnSuccessListener(SOS.this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                System.out.println( location);
+                if (location != null){
+                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                    posaljiLokacijuMOFO(sharedPreferences.getString("telefon",""),location);
+                    Toast.makeText(SOS.this,"Poruka uspesno poslata!",Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
+
+
+    }
+    public void posaljiLokacijuMOFO(String phoneNumber, Location currentLocation) {
+        SmsManager smsManager = SmsManager.getDefault();
+        StringBuffer smsBody = new StringBuffer();
+        smsBody.append("Moja trenutna lokacija: http://maps.google.com?q=");
+        smsBody.append(currentLocation.getLatitude());
+        smsBody.append(",");
+        smsBody.append(currentLocation.getLongitude());
+        smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
+    }
 }

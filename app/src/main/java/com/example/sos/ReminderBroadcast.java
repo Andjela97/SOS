@@ -22,6 +22,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
                 setContentIntent(pendingIntent).
                 setContentText("this is my notification").
                 setContentTitle("my notificaton").
+                setSmallIcon(R.drawable.pill).
                 setAutoCancel(true);
         notificationManager.notify(100, builder.build());
     }

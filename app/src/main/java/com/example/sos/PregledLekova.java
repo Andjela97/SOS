@@ -68,8 +68,8 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
                 Toast.makeText(PregledLekova.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY,22);
-                calendar.set(Calendar.MINUTE,04);
+                calendar.set(Calendar.HOUR_OF_DAY,10);
+                calendar.set(Calendar.MINUTE,29 );
 
 
                 Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);

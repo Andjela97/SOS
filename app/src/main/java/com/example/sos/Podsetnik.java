@@ -1,12 +1,24 @@
 package com.example.sos;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Podsetnik implements Serializable {
 
     private int podsetnik_id;
     private Vreme_terapije vreme_terapije;
     private int lek_id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Podsetnik podsetnik = (Podsetnik) o;
+        return lek_id == podsetnik.lek_id &&
+                vreme_terapije == podsetnik.vreme_terapije;
+    }
+
+
 
     public enum Vreme_terapije{
         jutro,

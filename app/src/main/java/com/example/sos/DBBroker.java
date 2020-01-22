@@ -94,7 +94,36 @@ public class DBBroker extends SQLiteOpenHelper {
         }
         return lista;
     }
+    public ArrayList<Podsetnik> dajSvePodsetnike(){
+        ArrayList<Podsetnik> lista = new ArrayList<>();
+        String query = "SELECT  * FROM podsetnici";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+
+            Podsetnik p = new Podsetnik();
+            p.setPodsetnik_id(cursor.getInt(0));
+            if (cursor.getString(1).equals(Podsetnik.Vreme_terapije.jutro.name()))
+            p.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
+            else  if (cursor.getString(1).equals(Podsetnik.Vreme_terapije.podne.name()))
+                p.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
+            else
+                p.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
+            p.setLek_id(cursor.getInt(2));
+            System.out.println(p.getLek_id());
+            System.out.println(p.getVreme_terapije().name());
+            lista.add(p);
+        }
+        return lista;
+    }
+
     public long dodajPodsetnik(Podsetnik p){
+        ArrayList<Podsetnik> lista = dajSvePodsetnike();
+        if (lista.contains(p)){
+            System.out.println("NECE DA MOZE");
+            return -1;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("lek_id",p.getLek_id());

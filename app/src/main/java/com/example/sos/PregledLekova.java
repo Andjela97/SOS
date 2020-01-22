@@ -60,6 +60,10 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
         setContentView(R.layout.activity_pregled_lekova);
 
         createNotificationChannel();
+
+
+
+
         btnNotif = findViewById(R.id.btnNotifikacije);
 
         btnNotif.setOnClickListener(new View.OnClickListener() {

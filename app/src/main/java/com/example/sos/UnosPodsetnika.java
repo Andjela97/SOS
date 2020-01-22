@@ -83,13 +83,13 @@ public class UnosPodsetnika extends AppCompatActivity {
                     return;
                 }
 
-
+    long rezultat = 0;
                 if (jutro.isChecked()) {
                     for (Lek l : izabraniLekovi) {
                         Podsetnik pom = new Podsetnik();
                         pom.setLek_id(l.getLek_id());
                         pom.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
-                        db.dodajPodsetnik(pom);
+                        rezultat = db.dodajPodsetnik(pom);
 
                     }
                 }
@@ -98,7 +98,7 @@ public class UnosPodsetnika extends AppCompatActivity {
                         Podsetnik pom = new Podsetnik();
                         pom.setLek_id(l.getLek_id());
                         pom.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
-                        db.dodajPodsetnik(pom);
+                        rezultat =  db.dodajPodsetnik(pom);
 
                     }
                 }
@@ -107,12 +107,18 @@ public class UnosPodsetnika extends AppCompatActivity {
                         Podsetnik pom = new Podsetnik();
                         pom.setLek_id(l.getLek_id());
                         pom.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
-                        db.dodajPodsetnik(pom);
+                        rezultat = db.dodajPodsetnik(pom);
 
                     }
                 }
-                Toast.makeText(UnosPodsetnika.this, "Uspesno uneti podsetnici!", Toast.LENGTH_LONG).show();
-                finish();
+                if (rezultat!= -1) {
+                    Toast.makeText(UnosPodsetnika.this, "Uspesno uneti podsetnici!", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else {
+                    Toast.makeText(UnosPodsetnika.this, "Vec postoji podsetnik u to doba za izabrani lek!", Toast.LENGTH_LONG).show();
+
+                }
 
 
             }

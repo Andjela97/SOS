@@ -44,7 +44,7 @@ public class Lekovi extends AppCompatActivity {
 
 
     public void openPregledLekova(){
-        Intent intent = new Intent(this, PregledLekova.class);
+        Intent intent = new Intent(this, PregledPodsetnika.class);
         startActivity(intent);
     }
 

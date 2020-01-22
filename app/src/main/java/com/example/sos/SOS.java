@@ -111,5 +111,6 @@ public class SOS extends AppCompatActivity {
         smsBody.append(",");
         smsBody.append(currentLocation.getLongitude());
         smsManager.sendTextMessage(phoneNumber, null, smsBody.toString(), null, null);
+
     }
 }

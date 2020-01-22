@@ -1,7 +1,6 @@
 package com.example.sos;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -21,10 +19,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 
-public class PregledLekova extends AppCompatActivity implements DialogYesNo.DialogYesNoListener {
+public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.DialogYesNoListener {
 
     DBBroker dbb;
     ListView listaJutro;
@@ -57,7 +53,7 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pregled_lekova);
+        setContentView(R.layout.activity_pregled_podsetnika);
 
         createNotificationChannel();
 
@@ -69,7 +65,7 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
         btnNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PregledLekova.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PregledPodsetnika.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,10);

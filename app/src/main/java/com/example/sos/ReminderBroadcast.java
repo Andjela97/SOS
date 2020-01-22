@@ -14,7 +14,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(context, PregledLekova.class);
+        Intent intent1 = new Intent(context, PregledPodsetnika.class);
         intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent1, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UnosLekova">
+    tools:context=".UnosLekova"
+    android:background="@color/pozadina"
+
+    >
 
     <ListView
         android:id="@+id/moguciLekovi"
@@ -24,9 +27,11 @@
         android:id="@+id/textView"
         android:layout_width="85dp"
         android:layout_height="31dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="40dp"
         android:text="Naziv"
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,9 +39,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="44dp"
         android:text="Genericko ime"
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -44,23 +51,30 @@
         android:id="@+id/txtNaziv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
         android:layout_marginTop="35dp"
+        android:layout_marginEnd="9dp"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/cardview_light_background"
+        />
 
     <EditText
         android:id="@+id/txtGenIme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
         android:layout_marginTop="27dp"
+        android:layout_marginEnd="9dp"
+
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/txtNaziv" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNaziv"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/cardview_light_background"
+        />
 
     <Button
         android:id="@+id/btnDodajLek"
@@ -70,7 +84,12 @@
         android:text="Dodaj lek"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtGenIme" />
+        app:layout_constraintTop_toBottomOf="@+id/txtGenIme"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+
+
+        />
 
     <View
         android:id="@+id/divider2"
@@ -82,7 +101,10 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDodajLek" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDodajLek"
+        android:backgroundTint="@color/tekst"
+
+        />
 
     <TextView
         android:id="@+id/textView17"
@@ -93,7 +115,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2"
-        android:textSize="20dp"/>
+
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        />
 
     <Button
         android:id="@+id/btnObrisi"
@@ -103,6 +128,9 @@
         android:text="Obrisi izabrane"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moguciLekovi" />
+        app:layout_constraintTop_toBottomOf="@+id/moguciLekovi"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

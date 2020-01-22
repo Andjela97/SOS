@@ -6,22 +6,20 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/grandmother"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/grandmother"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UnosPodsetnika"></activity>
+        <activity android:name=".UnosPodsetnika" />
         <activity android:name=".UnosLekova" />
         <activity android:name=".SOS" />
         <activity android:name=".Podesavanja" />
-
-        <activity android:name=".PregledLekova" />
+        <activity android:name=".PregledPodsetnika" />
         <activity android:name=".Lekovi" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -30,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ReminderBroadcast"/>
+
+        <receiver android:name=".ReminderBroadcast" />
     </application>
 
 </manifest>

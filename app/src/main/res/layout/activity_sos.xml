@@ -4,7 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pozadina"
+
+
+    >
 
     <Button
         android:id="@+id/btnHitna"
@@ -14,7 +18,10 @@
         android:text="pozovi hitnu pomoc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        />
 
     <Button
         android:id="@+id/btnPosaljiSMS"
@@ -24,7 +31,9 @@
         android:text="Posalji poruku kontaktu za hitne situacije"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHitna" />
+        app:layout_constraintTop_toBottomOf="@+id/btnHitna"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"/>
 
     <Button
         android:id="@+id/btnPozovi"
@@ -34,5 +43,22 @@
         android:text="pozovi kontakt za hitne situacije"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPosaljiSMS" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPosaljiSMS"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"/>
+
+    <View
+        android:id="@+id/divider4"
+
+        android:layout_width="409dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHitna"
+        android:backgroundTint="@color/colorAccent"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

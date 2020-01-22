@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#102027</color>
+    <color name="colorPrimaryDark">#62727b</color>
+    <color name="colorAccent">#ef6c00</color>
+    <color name="pozadina">#37474f</color>
+    <color name="tekst">#ff9d3f</color>
+
+
+
 </resources>

@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat;
 
 public class ReminderBroadcast extends BroadcastReceiver {
 
-    
+
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -20,8 +20,8 @@ public class ReminderBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "kanalID").
                 setContentIntent(pendingIntent).
-                setContentText("this is my notification").
-                setContentTitle("my notificaton").
+                setContentText("Popijte lekove.").
+                setContentTitle("MedHelp").
                 setSmallIcon(R.drawable.pill).
                 setAutoCancel(true);
         notificationManager.notify(100, builder.build());

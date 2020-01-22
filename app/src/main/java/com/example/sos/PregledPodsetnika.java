@@ -68,8 +68,8 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
                 Toast.makeText(PregledPodsetnika.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY,10);
-                calendar.set(Calendar.MINUTE,29 );
+                calendar.set(Calendar.HOUR_OF_DAY,17);
+                calendar.set(Calendar.MINUTE,11 );
 
 
                 Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);

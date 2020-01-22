@@ -21,7 +21,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "kanalID").
                 setContentIntent(pendingIntent).
                 setContentText("Popijte lekove.").
-                setContentTitle("MedHelp").
+                setContentTitle("MedAssistant").
                 setSmallIcon(R.drawable.pill).
                 setAutoCancel(true);
         notificationManager.notify(100, builder.build());

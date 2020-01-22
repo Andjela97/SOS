@@ -61,13 +61,15 @@
     <ListView
         android:id="@+id/moguciLekovi"
         android:layout_width="409dp"
-        android:layout_height="360dp"
-        android:layout_marginTop="1dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="30dp"
+
         app:layout_constraintBottom_toTopOf="@+id/potvrdiPotsetnikBtn"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
+
+
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 

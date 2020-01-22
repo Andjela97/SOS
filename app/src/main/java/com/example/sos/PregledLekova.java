@@ -144,6 +144,13 @@ public class PregledLekova extends AppCompatActivity implements DialogYesNo.Dial
 
     public void kliknutoDa() {
         dbb.obrisiPodsetnik(selektovanPod);
+        lJutro = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.jutro);
+        lPodne = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.podne);
+        lVece = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.vece);
+        adapter1.notifyDataSetChanged();
+        adapter2.notifyDataSetChanged();
+        adapter3.notifyDataSetChanged();
+
 
     }
 

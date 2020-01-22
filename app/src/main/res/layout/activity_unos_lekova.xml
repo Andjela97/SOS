@@ -6,17 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".UnosLekova">
 
+    <ListView
+        android:id="@+id/moguciLekovi"
+        android:layout_width="409dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="1dp"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/potvrdiPotsetnikBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="85dp"
         android:layout_height="31dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="40dp"
         android:text="Naziv"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/txtNaziv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,13 +34,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="83dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="44dp"
         android:text="Genericko ime"
-        app:layout_constraintBottom_toTopOf="@+id/btnDodajLek"
-        app:layout_constraintEnd_toStartOf="@+id/txtGenIme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -38,13 +44,10 @@
         android:id="@+id/txtNaziv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="79dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="35dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtGenIme"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,13 +55,10 @@
         android:id="@+id/txtGenIme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="78dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="27dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnDodajLek"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/txtNaziv" />
 
@@ -66,14 +66,43 @@
         android:id="@+id/btnDodajLek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="73dp"
-        android:layout_marginEnd="247dp"
-        android:layout_marginBottom="469dp"
+        android:layout_marginTop="20dp"
         android:text="Dodaj lek"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtGenIme" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDodajLek" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="Brisanje lekova"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/btnObrisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="Obrisi izabrane"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moguciLekovi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

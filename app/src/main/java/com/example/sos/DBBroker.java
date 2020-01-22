@@ -32,9 +32,26 @@ public class DBBroker extends SQLiteOpenHelper {
     }
 
 
+    public void obrisiLekove(ArrayList<Lek> izabrani) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (Lek lek:izabrani) {
+            String upit = "delete from podsetnici where lek_id = '" + lek.getLek_id() + "'";
+            System.out.println(upit);
+            db.execSQL(upit);
+        }
+
+        for (Lek lek:izabrani) {
+            String upit = "delete from lekovi where lek_id = '" + lek.getLek_id() + "'";
+            System.out.println(upit);
+            db.execSQL(upit);
+        }
 
 
-    public ArrayList<Lek> dajSveLekove(){
+
+        db.close();
+    }
+
+    public ArrayList<Lek> dajSveLekove() {
         ArrayList<Lek> lista = new ArrayList<>();
         String query = "SELECT  * FROM lekovi";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -49,18 +66,20 @@ public class DBBroker extends SQLiteOpenHelper {
         }
         return lista;
     }
-    public long dodajLek(Lek l){
+
+    public long dodajLek(Lek l) {
         System.out.println("PRE DODAVANJA");
         System.out.println(l);
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("naziv",l.getNaziv());
-        values.put("genericko_ime",l.getGenericko_ime());
-        long rt = (db.insert("lekovi", null,values));
+        values.put("naziv", l.getNaziv());
+        values.put("genericko_ime", l.getGenericko_ime());
+        long rt = (db.insert("lekovi", null, values));
 
         db.close();
         return rt;
     }
+
     public void obrisiLek(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String upit = "delete from lekovi where lek_id = " + id;
@@ -71,17 +90,17 @@ public class DBBroker extends SQLiteOpenHelper {
 
     public void obrisiPodsetnik(ZaPrikazPrikaza p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String upit = "delete from podsetnici where podsetnik_id = '"+p.getPodsetnik_id()+"'";
+        String upit = "delete from podsetnici where podsetnik_id = '" + p.getPodsetnik_id() + "'";
         System.out.println(upit);
         db.execSQL(upit);
         db.close();
     }
 
 
-    public ArrayList<ZaPrikazPrikaza> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije){
+    public ArrayList<ZaPrikazPrikaza> dajSveLekoveZaVreme(Podsetnik.Vreme_terapije vreme_terapije) {
         ArrayList<ZaPrikazPrikaza> lista = new ArrayList<>();
         String query = "SELECT  naziv,  podsetnik_id FROM lekovi l JOIN podsetnici p ON l.lek_id = p.lek_id " +
-                "where vreme_terapije = '"+vreme_terapije+"'";
+                "where vreme_terapije = '" + vreme_terapije + "'";
         System.out.println(query);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -94,7 +113,8 @@ public class DBBroker extends SQLiteOpenHelper {
         }
         return lista;
     }
-    public ArrayList<Podsetnik> dajSvePodsetnike(){
+
+    public ArrayList<Podsetnik> dajSvePodsetnike() {
         ArrayList<Podsetnik> lista = new ArrayList<>();
         String query = "SELECT  * FROM podsetnici";
 
@@ -105,8 +125,8 @@ public class DBBroker extends SQLiteOpenHelper {
             Podsetnik p = new Podsetnik();
             p.setPodsetnik_id(cursor.getInt(0));
             if (cursor.getString(1).equals(Podsetnik.Vreme_terapije.jutro.name()))
-            p.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
-            else  if (cursor.getString(1).equals(Podsetnik.Vreme_terapije.podne.name()))
+                p.setVreme_terapije(Podsetnik.Vreme_terapije.jutro);
+            else if (cursor.getString(1).equals(Podsetnik.Vreme_terapije.podne.name()))
                 p.setVreme_terapije(Podsetnik.Vreme_terapije.podne);
             else
                 p.setVreme_terapije(Podsetnik.Vreme_terapije.vece);
@@ -118,17 +138,17 @@ public class DBBroker extends SQLiteOpenHelper {
         return lista;
     }
 
-    public long dodajPodsetnik(Podsetnik p){
+    public long dodajPodsetnik(Podsetnik p) {
         ArrayList<Podsetnik> lista = dajSvePodsetnike();
-        if (lista.contains(p)){
+        if (lista.contains(p)) {
             System.out.println("NECE DA MOZE");
             return -1;
         }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("lek_id",p.getLek_id());
-        values.put("vreme_terapije",p.getVreme_terapije().name());
-        long rt = (db.insert("podsetnici", null,values));
+        values.put("lek_id", p.getLek_id());
+        values.put("vreme_terapije", p.getVreme_terapije().name());
+        long rt = (db.insert("podsetnici", null, values));
 
         db.close();
         return rt;

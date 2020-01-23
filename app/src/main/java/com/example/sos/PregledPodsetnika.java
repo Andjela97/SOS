@@ -1,6 +1,7 @@
 package com.example.sos;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -37,17 +38,90 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
     Button btnNotif;
 
 
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Kanal notifikacija";
             String description = "Kanal notifikacija";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel kanal = new NotificationChannel("kanalID",name,importance);
+            NotificationChannel kanal = new NotificationChannel("kanalID", name, importance);
             kanal.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(kanal);
         }
+    }
+
+    public void posaljiNotifJutro() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 52);
+
+        ArrayList<ZaPrikazPrikaza> lekoviJutro = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.jutro);
+        String kobasicaJutro = "Popijte sledece lekove: ";
+        for (int i = 0; i < lekoviJutro.size(); i++) {
+            kobasicaJutro += "" + lekoviJutro.get(i).getNaziv() + ((i == lekoviJutro.size() - 1) ? "." : ", ");
+            System.out.println(kobasicaJutro);
+        }
+        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+        intent.putExtra("imena", kobasicaJutro);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    public void posaljiNotifPodne() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 00);
+        ArrayList<ZaPrikazPrikaza> lekoviPodne = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.podne);
+        String kobasicaPodne = "Popijte sledece lekove: ";
+        for (int i = 0; i < lekoviPodne.size(); i++) {
+            kobasicaPodne += "" + lekoviPodne.get(i).getNaziv() + ((i == lekoviPodne.size() - 1) ? "." : ", ");
+            System.out.println(kobasicaPodne);
+        }
+        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+
+        intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+        intent.putExtra("imena", kobasicaPodne);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+
+        alarmManager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    public void posaljiNotifVece() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.MINUTE, 00);
+        ArrayList<ZaPrikazPrikaza> lekoviVece = dbb.dajSveLekoveZaVreme(Podsetnik.Vreme_terapije.vece);
+        String kobasicaVece = "Popijte sledece lekove: ";
+        for (int i = 0; i < lekoviVece.size(); i++) {
+            kobasicaVece += "" + lekoviVece.get(i).getNaziv() + ((i == lekoviVece.size() - 1) ? "." : ", ");
+            System.out.println(kobasicaVece);
+        }
+        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+
+        intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+        intent.putExtra("imena", kobasicaVece);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager2 = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+
+        alarmManager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
     @Override
@@ -58,27 +132,16 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
         createNotificationChannel();
 
 
-
-
         btnNotif = findViewById(R.id.btnNotifikacije);
 
         btnNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PregledPodsetnika.this,"Obavestenja ukljucena!",Toast.LENGTH_SHORT).show();
+                posaljiNotifJutro();
+                posaljiNotifPodne();
+                posaljiNotifVece();
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY,17);
-                calendar.set(Calendar.MINUTE,11 );
-
-
-                Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
-                        AlarmManager.INTERVAL_DAY,pendingIntent);
+                Toast.makeText(PregledPodsetnika.this, "Obavestenja ukljucena!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -97,7 +160,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
         listaPodne.setAdapter(adapter2);
         listaVece.setAdapter(adapter3);
 
-        listaJutro.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listaJutro.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
         listaJutro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -105,7 +168,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 DialogYesNo dijalog = new DialogYesNo();
-                dijalog.show(getSupportFragmentManager(),"dialog");
+                dijalog.show(getSupportFragmentManager(), "dialog");
                 selektovanPod = lJutro.get(i);
             }
         });
@@ -118,7 +181,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 DialogYesNo dijalog = new DialogYesNo();
-                dijalog.show(getSupportFragmentManager(),"dialog");
+                dijalog.show(getSupportFragmentManager(), "dialog");
                 selektovanPod = lPodne.get(i);
             }
         });
@@ -131,7 +194,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 DialogYesNo dijalog = new DialogYesNo();
-                dijalog.show(getSupportFragmentManager(),"dialog");
+                dijalog.show(getSupportFragmentManager(), "dialog");
                 selektovanPod = lVece.get(i);
             }
         });
@@ -171,7 +234,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.prikaz_list_item, null);
+            view = getLayoutInflater().inflate(R.layout.bez_cb, null);
 
             TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
 
@@ -201,7 +264,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.prikaz_list_item, null);
+            view = getLayoutInflater().inflate(R.layout.bez_cb, null);
 
             TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
 
@@ -210,8 +273,6 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
             return view;
         }
     }
-
-
 
 
     public class Adapter3 extends BaseAdapter {
@@ -234,7 +295,7 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.prikaz_list_item, null);
+            view = getLayoutInflater().inflate(R.layout.bez_cb, null);
 
             TextView txtNaziv = view.findViewById(R.id.txtNazivLeka);
 
@@ -243,22 +304,6 @@ public class PregledPodsetnika extends AppCompatActivity implements DialogYesNo.
             return view;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
